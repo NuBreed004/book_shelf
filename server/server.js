@@ -10,6 +10,7 @@ const app = express();
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DATABASE)
 
+const { User } =require('./models/user')
 
 app.use(bodyParser.json());
 app.use(cookieParser());
