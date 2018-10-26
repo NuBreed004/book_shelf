@@ -33,7 +33,7 @@ app.get('/api/books', (req, res)=> {
 
   Book.find().skip(skip).sort({_id:order}).limit(limit).exec((err, doc)=> {
     if(err)return res.status(400).send(err);
-    res.send(doc);  
+    res.send(doc);
   })
 
 })
@@ -50,6 +50,31 @@ app.post('/api/book', (req, res)=> {
     })
   })
 })
+
+///UPDATE
+
+app.post('/api/book_update', (req, res)=> {
+
+  Book.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, doc)=> {
+    if(err) return res.status(400).send(err);
+    res.json({
+      success: true,
+      doc
+    })
+  })
+
+})
+
+///DELETE
+app.delete('/api/delete_book', (req, res)=> {
+  let id = req.query.id;
+
+  Book.findByIdAndRemove(id, (req, doc)=> {
+    if(err) return res.status(400).send(err);
+    res.json(true)
+  })
+})
+
 
 
 const port = process.env.PORT || 3001;
